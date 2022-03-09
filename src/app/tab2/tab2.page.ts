@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaskserviceService} from "../services/taskservice.service"
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,23 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  public tasks: string[];
 
+  constructor(private taskService:TaskserviceService) {
+    
+    this.tasks = this.taskService.getCompletedTasks();
+  }
+
+  
+
+
+  public finishTask(pos: number){
+    this.taskService.removeCompletedTask(pos);
+    this.tasks = this.taskService.getCompletedTasks();
+  }
+
+  public uncompleteTask(pos: number){
+    this.taskService.unCompleteTask(pos);
+    this.tasks = this.taskService.getCompletedTasks();
+  }
 }
